@@ -1,0 +1,14 @@
+README.md
+pom.xml
+src/main/java/de/responseserver/spring/model/Book.java
+src/main/java/de/responseserver/spring/model/BookInformation.java
+src/main/java/de/responseserver/spring/model/BookInformationList.java
+src/main/java/de/responseserver/spring/resources/ApiUtil.java
+src/main/java/de/responseserver/spring/resources/BooksApi.java
+src/main/java/de/responseserver/spring/resources/BooksApiController.java
+src/main/java/de/responseserver/spring/resources/BooksApiDelegate.java
+src/main/java/org/openapitools/OpenAPI2SpringBoot.java
+src/main/java/org/openapitools/RFC3339DateFormat.java
+src/main/java/org/openapitools/configuration/HomeController.java
+src/main/resources/application.properties
+src/main/resources/openapi.yaml
