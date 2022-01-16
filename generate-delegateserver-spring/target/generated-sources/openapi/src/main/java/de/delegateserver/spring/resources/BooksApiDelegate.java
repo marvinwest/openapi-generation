@@ -19,7 +19,7 @@ import java.util.Optional;
  * A delegate to be called by the {@link BooksApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-16T16:03:53.688844200+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-16T16:49:36.702674800+01:00[Europe/Berlin]")
 public interface BooksApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {

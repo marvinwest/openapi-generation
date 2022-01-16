@@ -21,7 +21,7 @@ import java.util.*;
  * List of BookInformations
  */
 @ApiModel(description = "List of BookInformations")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-16T16:03:53.688844200+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-16T16:49:36.702674800+01:00[Europe/Berlin]")
 public class BookInformationList   {
   @JsonProperty("data")
   @Valid

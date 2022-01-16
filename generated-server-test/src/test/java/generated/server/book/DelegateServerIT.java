@@ -42,7 +42,6 @@ public class DelegateServerIT extends SystemTest {
 		bookSystem.bookVerifier.booksAreEqual(expectedBook, foundBook);
 	}
 
-	@Disabled("not functioning for now")
 	@Test
 	@DisplayName("is Found in BookInformation after Creation")
 	void createdBookIsFound() {

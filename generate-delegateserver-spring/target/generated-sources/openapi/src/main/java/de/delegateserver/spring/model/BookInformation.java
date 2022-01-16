@@ -19,7 +19,7 @@ import java.util.*;
  * Simplified information for finding books in your storage
  */
 @ApiModel(description = "Simplified information for finding books in your storage")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-16T16:03:53.688844200+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-16T16:49:36.702674800+01:00[Europe/Berlin]")
 public class BookInformation   {
   @JsonProperty("bookId")
   private UUID bookId;

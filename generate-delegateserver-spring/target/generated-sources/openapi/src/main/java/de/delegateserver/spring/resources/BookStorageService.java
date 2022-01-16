@@ -1,5 +1,6 @@
 package de.delegateserver.spring.resources;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,25 +62,23 @@ public class BookStorageService implements BooksApiDelegate {
         
         List<Book> filteredBooks = bookStream.collect(Collectors.toList());
         
-        List<BookInformation> bookInformations = filteredBooks.stream()
-        		.map((Book b) -> {
-        			for(UUID key : bookMap.keySet()) {
-        				if(b.equals(bookMap.get(key))) {
-        					BookInformation info = new BookInformation();
-        					info.setBookId(key);
-        					info.setTitle(b.getTitle());
-        					return info;
-        				}
-        			}
-        			return null;
-        		})
-        		.collect(Collectors.toList());
+        List<BookInformation> bookInformations = new ArrayList<>();
+        for(UUID key : bookMap.keySet()) {
+        	for(Book filteredBook : filteredBooks) {
+        		if(filteredBook.equals(bookMap.get(key))) {
+        			BookInformation info = new BookInformation();
+					info.setBookId(key);
+					info.setTitle(filteredBook.getTitle());
+					bookInformations.add(info);
+					break;	
+        		}
+        	}
+        }
         
         BookInformationList response = new BookInformationList();
         response.setData(bookInformations);
         
         return new ResponseEntity<>(response, HttpStatus.OK);
 	}
-	
-	
+		
 }
