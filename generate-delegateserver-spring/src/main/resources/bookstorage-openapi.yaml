@@ -1,0 +1,240 @@
+openapi: 3.0.3
+servers:
+  - url: http://localhost:8080
+    description: Local machine
+info:
+  title: Bookstorage API
+  description: This API stores books on a server
+  version: 0.0.1
+tags:
+  - name: Books
+paths:
+  /books:
+    post:
+      tags: [Books]
+      summary: Store a book
+      description: Add a book to your storage.
+      requestBody:
+        description: Book to be created
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookRequest"
+      responses:
+        201:
+          description: created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+    get:
+      tags: [Books]
+      summary: Fetch a list of the books in your storage filtered by title, author or year
+      description: Find the information about the books in your storage, maybe 
+        filtered by title, author or year.
+      parameters:
+        - in: query
+          name: title
+          required: false
+          description: Title of the book
+          schema:
+            type: string
+        - in: query
+          name: author
+          required: false
+          description: Author of the book
+          schema:
+            type: string
+        - in: query
+          name: year
+          required: false
+          description: Year the book was published
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookList"
+        400:
+          $ref: "#/components/responses/BadRequest"
+                
+  /books/{bookId}:
+    get:
+      tags: [Books]
+      summary: Fetch a book by its bookId
+      description: Fetch a book by its bookId
+      parameters:
+        - in: path
+          name: bookId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: UUID of the book
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+    put:
+      tags: [Books]
+      summary: Add a new book or replace the book given at that resource
+      description: Add a new book or replace the book given at that resource
+      parameters:
+        - in: path
+          name: bookId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: UUID of the book
+      requestBody:
+        description: Book to be updated
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookRequest"
+      responses:
+        204:
+          description: No Content
+        400:
+          $ref: "#/components/responses/BadRequest"
+    patch:
+      tags: [Books]
+      summary: Update a stored book
+      description: Update a stored book
+      parameters:
+        - in: path
+          name: bookId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: UUID of the book
+      requestBody:
+        description: Book to be updated
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookPatchRequest"
+      responses:
+        204:
+          description: No Content
+        400:
+          $ref: "#/components/responses/BadRequest"
+    delete:
+      tags: [Books]
+      summary: Delete a book from the storage
+      description: Delete a book from the storage
+      parameters:
+        - in: path
+          name: bookId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: UUID of the book
+      responses:
+        204:
+          description: no content
+        400:
+          $ref: "#/components/responses/BadRequest"
+          
+components:
+  schemas:
+    BookRequest:
+      type: object
+      description: Request object of the book
+      required:
+        - title
+        - author
+        - year
+      properties:
+        title:
+          type: string
+          description: Title of the book
+        author:
+          type: string
+          description: Name of the author of the book
+        year:
+          type: integer
+          format: int32
+          description: The year the book was published
+        summary:
+          type: string
+          description: Short summary of the book
+    BookResponse:
+      type: object
+      description: Response object of the book
+      required:
+        - bookId
+        - title
+        - author
+        - year
+      properties:
+        bookId:
+          type: string
+          format: uuid
+          description: The UUID of the book in your storage
+        title:
+          type: string
+          description: Title of the book
+        author:
+          type: string
+          description: Name of the author of the book
+        year:
+          type: integer
+          format: int32
+          description: The year the book was published
+        summary:
+          type: string
+          description: Short summary of the book
+    BookList:
+      type: object
+      description: List of Books
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/BookResponse"
+    BookPatchRequest:
+      type: object
+      description: Request to update a book
+      properties:
+        title:
+          type: string
+          description: Title of the book
+        author:
+          type: string
+          description: Name of the author of the book
+        year:
+          type: integer
+          format: int32
+          description: The year the book was published
+        summary:
+          type: string
+          description: Short summary of the book
+  responses:
+    BadRequest:
+      description: |-
+        Bad Request: if the request cannot be processed due to a client error.
+
+          For example:
+
+          - invalid request syntax
+          - semantical error in request, like:
+            - invalid reference in request data (for instance bookId refers to a Book that does not exist)
+            - missing field that is required
+      

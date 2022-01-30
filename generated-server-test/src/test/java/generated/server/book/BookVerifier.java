@@ -7,14 +7,14 @@ import org.junit.jupiter.api.Assertions;
 
 public class BookVerifier {
 
-	public void assertBookInformationInBookInformationList(BookInformation info, BookInformationList infoList) {
-		List<BookInformation> filteredList = infoList.data.stream()
+	public void assertBookInformationInBookInformationList(BookResponse info, BookList infoList) {
+		List<BookResponse> filteredList = infoList.data.stream()
 			.filter(b -> b.bookId.equals(info.bookId))
 			.collect(Collectors.toList());
 		Assertions.assertEquals(1, filteredList.size());
 	}
 	
-	public void booksAreEqual(Book expected, Book found) {
+	public void booksAreEqual(BookRequest expected, BookRequest found) {
 		Assertions.assertAll("Two Books are Equal",
 				() -> Assertions.assertEquals(expected.title,  found.title),
 				() -> Assertions.assertEquals(expected.author, found.author),

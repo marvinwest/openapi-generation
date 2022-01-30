@@ -31,12 +31,12 @@ public class DelegateServerIT extends SystemTest {
 		// given
 		final var expectedBook = bookSystem.buildOrwell();
 		Response postResponse = bookSystem.tryStoringBook(expectedBook);
-		final var bookInformation = postResponse.readEntity(BookInformation.class);
+		final var bookResponse = postResponse.readEntity(BookResponse.class);
 		
 		//when
-		final var bookId = UUID.fromString(bookInformation.bookId);
+		final var bookId = UUID.fromString(bookResponse.bookId);
 		Response getResponse = bookSystem.tryFetchingBookbyBookId(bookId);
-		final var foundBook = getResponse.readEntity(Book.class);
+		final var foundBook = getResponse.readEntity(BookRequest.class);
 		
 		//then
 		bookSystem.bookVerifier.booksAreEqual(expectedBook, foundBook);
@@ -48,11 +48,11 @@ public class DelegateServerIT extends SystemTest {
 		// given
 		final var book = bookSystem.buildOrwell();
 		Response postResponse = bookSystem.tryStoringBook(book);
-		final var bookInformation = postResponse.readEntity(BookInformation.class);
+		final var bookInformation = postResponse.readEntity(BookResponse.class);
 
 		// when
 		Response getResponse = bookSystem.tryFetchingBooks();
-		final var bookInformationList = getResponse.readEntity(BookInformationList.class);
+		final var bookInformationList = getResponse.readEntity(BookList.class);
 		
 
 		// then

@@ -1,5 +1,4 @@
-generate-simpleserver-spring/target/
-generated-server-test/target/
+target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -10,7 +9,7 @@ buildNumber.properties
 .mvn/timing.properties
 .settings
 .classpath
+.class
 .project
-generated-server-test/target/
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar

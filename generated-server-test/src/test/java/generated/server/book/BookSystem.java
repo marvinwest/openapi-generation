@@ -13,7 +13,7 @@ public class BookSystem extends System {
 	
 	BookVerifier bookVerifier = new BookVerifier();
 	
-	public Response tryStoringBook(Book book) {
+	public Response tryStoringBook(BookRequest book) {
 		return this.fetchOrigin()
 				.path(RESOURCE_LOCATION)
 				.request()
@@ -47,8 +47,8 @@ public class BookSystem extends System {
 				.delete();
 	}
 	
-	public Book buildOrwell() {
-		Book orwell = new Book();
+	public BookRequest buildOrwell() {
+		BookRequest orwell = new BookRequest();
 		orwell.title = "Animal Farm";
 		orwell.author = "George Orwell";
 		orwell.year = 1945;
@@ -56,8 +56,8 @@ public class BookSystem extends System {
 		return orwell;
 	}
 	
-	public Book buildHuxley() {
-		Book huxley = new Book();
+	public BookRequest buildHuxley() {
+		BookRequest huxley = new BookRequest();
 		huxley.title = "Brave New World";
 		huxley.author = "Aldous Huxley";
 		huxley.year = 1932;
