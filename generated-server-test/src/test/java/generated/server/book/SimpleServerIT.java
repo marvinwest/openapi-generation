@@ -37,10 +37,10 @@ public class SimpleServerIT extends SystemTest {
 	@DisplayName("in Response for get on book by bookId")
 	void getBook() {
 		// given
-		final var bookId = UUID.randomUUID();
+		final var bookId = UUID.randomUUID().toString();
 
 		// when
-		Response response = bookSystem.tryFetchingBookbyBookId(bookId);
+		Response response = bookSystem.tryFetchingBookByBookId(bookId);
 
 		// then
 		bookSystem.getVerifier().verifyNotImplemented(response);
@@ -50,7 +50,7 @@ public class SimpleServerIT extends SystemTest {
 	@DisplayName("in Response for PUT on book by bookId")
 	void put() {
 		// given
-		final var bookId = UUID.randomUUID();
+		final var bookId = UUID.randomUUID().toString();
 		final var bookRequest = bookSystem.buildHuxley();
 
 		// when
@@ -64,7 +64,7 @@ public class SimpleServerIT extends SystemTest {
 	@DisplayName("in Response for PATCH on book by bookId")
 	void patch() {
 		// given
-		final var bookId = UUID.randomUUID();
+		final var bookId = UUID.randomUUID().toString();
 		final var bookRequest = bookSystem.buildHuxley();
 
 		// when
@@ -78,7 +78,7 @@ public class SimpleServerIT extends SystemTest {
 	@DisplayName("in Response for deletion")
 	void delete() {
 		// given
-		final var bookId = UUID.randomUUID();
+		final var bookId = UUID.randomUUID().toString();
 
 		// when
 		Response response = bookSystem.tryDeletingBookByBookId(bookId);

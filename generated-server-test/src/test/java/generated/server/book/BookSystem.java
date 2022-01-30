@@ -14,11 +14,21 @@ public class BookSystem extends System {
 	
 	BookVerifier bookVerifier = new BookVerifier();
 	
+	public BookResponse storeBook(BookRequest book) {
+		Response response = this.tryStoringBook(book);
+		return response.readEntity(BookResponse.class);
+	}
+	
 	public Response tryStoringBook(BookRequest book) {
 		return this.fetchOrigin()
 				.path(RESOURCE_LOCATION)
 				.request()
 				.post(Entity.json(book));
+	}
+	
+	public BookList fetchBooks() {
+		final Response response = tryFetchingBooks();
+		return response.readEntity(BookList.class);
 	}
 	
 	public Response tryFetchingBooks() {
@@ -28,42 +38,39 @@ public class BookSystem extends System {
 				.get();
 	}
 	
-	public Response tryFetchingBookbyBookId(UUID bookId) {
-		final var bookIdString = bookId.toString();
-		
+	public BookResponse fetchBookByBookId(String bookId) {
+		final Response response = tryFetchingBookByBookId(bookId);
+		return response.readEntity(BookResponse.class);
+	}
+	
+	public Response tryFetchingBookByBookId(String bookId) {
 		return this.fetchOrigin()
 				.path(RESOURCE_LOCATION)
-				.path(bookIdString)
+				.path(bookId)
 				.request()
 				.get();
 	}
 	
-	public Response tryUpdatingBookByBookId(UUID bookId, BookRequest book) {
-		final var bookIdString = bookId.toString();
-		
+	public Response tryUpdatingBookByBookId(String bookId, BookRequest book) {
 		return this.fetchOrigin()
 				.path(RESOURCE_LOCATION)
-				.path(bookIdString)
+				.path(bookId)
 				.request()
 				.method(HttpMethod.PUT, Entity.json(book));
 	}
 	
-	public Response tryPatchingBookByBookId(UUID bookId, BookRequest book) {
-		final var bookIdString = bookId.toString();
-		
+	public Response tryPatchingBookByBookId(String bookId, BookRequest book) {
 		return this.fetchOrigin()
 				.path(RESOURCE_LOCATION)
-				.path(bookIdString)
+				.path(bookId)
 				.request()
 				.method(HttpMethod.PATCH, Entity.json(book));
 	}
 
-	public Response tryDeletingBookByBookId(UUID bookId) {
-		final var bookIdString = bookId.toString();
-		
+	public Response tryDeletingBookByBookId(String bookId) {	
 		return this.fetchOrigin()
 				.path(RESOURCE_LOCATION)
-				.path(bookIdString)
+				.path(bookId)
 				.request()
 				.delete();
 	}
