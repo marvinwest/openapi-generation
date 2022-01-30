@@ -2,6 +2,7 @@ package generated.server.book;
 
 import java.util.UUID;
 
+import javax.ws.rs.HttpMethod;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 
@@ -36,6 +37,26 @@ public class BookSystem extends System {
 				.request()
 				.get();
 	}
+	
+	public Response tryUpdatingBookByBookId(UUID bookId, BookRequest book) {
+		final var bookIdString = bookId.toString();
+		
+		return this.fetchOrigin()
+				.path(RESOURCE_LOCATION)
+				.path(bookIdString)
+				.request()
+				.method(HttpMethod.PUT, Entity.json(book));
+	}
+	
+	public Response tryPatchingBookByBookId(UUID bookId, BookRequest book) {
+		final var bookIdString = bookId.toString();
+		
+		return this.fetchOrigin()
+				.path(RESOURCE_LOCATION)
+				.path(bookIdString)
+				.request()
+				.method(HttpMethod.PATCH, Entity.json(book));
+	}
 
 	public Response tryDeletingBookByBookId(UUID bookId) {
 		final var bookIdString = bookId.toString();
@@ -52,6 +73,7 @@ public class BookSystem extends System {
 		orwell.title = "Animal Farm";
 		orwell.author = "George Orwell";
 		orwell.year = 1945;
+		orwell.summary = "All animals are equal, but some animals are more equal than others.";
 		
 		return orwell;
 	}

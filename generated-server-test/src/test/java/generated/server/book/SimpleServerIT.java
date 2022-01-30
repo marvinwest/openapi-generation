@@ -11,19 +11,6 @@ import org.junit.jupiter.api.Test;
 public class SimpleServerIT extends SystemTest {
 
 	@Test
-	@DisplayName("in Response for deletion")
-	void delete() {
-		// given
-		final var bookId = UUID.randomUUID();
-
-		// when
-		Response response = bookSystem.tryDeletingBookByBookId(bookId);
-
-		// then
-		bookSystem.getVerifier().verifyNotImplemented(response);
-	}
-
-	@Test
 	@DisplayName("in Response for post on book")
 	void post() {
 		// given
@@ -58,5 +45,47 @@ public class SimpleServerIT extends SystemTest {
 		// then
 		bookSystem.getVerifier().verifyNotImplemented(response);
 	}
+	
+	@Test
+	@DisplayName("in Response for PUT on book by bookId")
+	void put() {
+		// given
+		final var bookId = UUID.randomUUID();
+		final var bookRequest = bookSystem.buildHuxley();
+
+		// when
+		Response response = bookSystem.tryUpdatingBookByBookId(bookId, bookRequest);
+
+		// then
+		bookSystem.getVerifier().verifyNotImplemented(response);
+	}
+	
+	@Test
+	@DisplayName("in Response for PATCH on book by bookId")
+	void patch() {
+		// given
+		final var bookId = UUID.randomUUID();
+		final var bookRequest = bookSystem.buildHuxley();
+
+		// when
+		Response response = bookSystem.tryPatchingBookByBookId(bookId, bookRequest);
+
+		// then
+		bookSystem.getVerifier().verifyNotImplemented(response);
+	}
+	
+	@Test
+	@DisplayName("in Response for deletion")
+	void delete() {
+		// given
+		final var bookId = UUID.randomUUID();
+
+		// when
+		Response response = bookSystem.tryDeletingBookByBookId(bookId);
+
+		// then
+		bookSystem.getVerifier().verifyNotImplemented(response);
+	}
+
 
 }
