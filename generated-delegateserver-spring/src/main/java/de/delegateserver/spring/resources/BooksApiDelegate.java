@@ -20,7 +20,7 @@ import java.util.Optional;
  * A delegate to be called by the {@link BooksApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-30T14:19:44.509599900+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-31T20:35:57.697530700+01:00[Europe/Berlin]")
 public interface BooksApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -85,7 +85,7 @@ public interface BooksApiDelegate {
      * Add a new book or replace the book given at that resource
      *
      * @param bookId UUID of the book (required)
-     * @param bookRequest Book to be updated (optional)
+     * @param bookRequest Book to be updated (required)
      * @return No Content (status code 204)
      *         or Bad Request: if the request cannot be processed due to a client error.    For example:    - invalid request syntax   - semantical error in request, like:     - invalid reference in request data (for instance bookId refers to a Book that does not exist)     - missing field that is required (status code 400)
      * @see BooksApi#booksBookIdPut
@@ -127,7 +127,7 @@ public interface BooksApiDelegate {
      * POST /books : Store a book
      * Add a book to your storage.
      *
-     * @param bookRequest Book to be created (optional)
+     * @param bookRequest Book to be created (required)
      * @return created (status code 201)
      *         or Bad Request: if the request cannot be processed due to a client error.    For example:    - invalid request syntax   - semantical error in request, like:     - invalid reference in request data (for instance bookId refers to a Book that does not exist)     - missing field that is required (status code 400)
      * @see BooksApi#booksPost

@@ -16,6 +16,7 @@ paths:
       description: Add a book to your storage.
       requestBody:
         description: Book to be created
+        required: true
         content:
           application/json:
             schema:
@@ -100,6 +101,7 @@ paths:
           description: UUID of the book
       requestBody:
         description: Book to be updated
+        required: true
         content:
           application/json:
             schema:

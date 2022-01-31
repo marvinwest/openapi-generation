@@ -61,7 +61,7 @@ public class ClientErrorIT extends SystemTest{
 		bookSystem.getVerifier().verifyClientError(response);
 	}
 	
-	@Disabled("Returns successful, even though required attributes title, author and year in BookRequest are missing")
+	@Disabled("Returns SUCCESSFUL for delegate server and CLIENT_ERROR for simple server,even though required attributes title, author and year in BookRequest are missing")
 	@Test
 	@DisplayName("If required fields for BookRequest are not set in POST")
 	void requiredFieldsMissingPost() {
@@ -77,7 +77,7 @@ public class ClientErrorIT extends SystemTest{
 	
 	@Disabled("Returns successful, even though required attributes title, author and year in BookRequest are missing")
 	@Test
-	@DisplayName("If required fields for BookRequest are not set in PUT")
+	@DisplayName("If required fields for BookRequest are not set in PUT (only for delegate server, given is not implemented in simple server)")
 	void requiredFieldsMissingPut() {
 		//given
 		final var validRequest = bookSystem.buildHuxley();
@@ -91,17 +91,25 @@ public class ClientErrorIT extends SystemTest{
 		bookSystem.getVerifier().verifyClientError(response);
 	}
 	
-	@Disabled("Returns successful, even though required attributes title, author and year in BookRequest are missing")
 	@Test
-	@DisplayName("If required fields for BookRequest are not set in PATCH")
-	void requiredFieldsMissingPatch() {
+	@DisplayName("If BookRequest is null in PUT (only for delegate server, given is not implemented in simple server)")
+	void bookRequestIsNullInPut() {
 		//given
 		final var validRequest = bookSystem.buildHuxley();
 		final var postResponse = bookSystem.storeBook(validRequest);
-		final var invalidRequest = bookSystem.buildInvalidBook();
 		
 		//when
-		final var response = bookSystem.tryPatchingBookByBookId(postResponse.bookId, invalidRequest);
+		final var response = bookSystem.tryUpdatingBookByBookId(postResponse.bookId, null);
+		
+		//then
+		bookSystem.getVerifier().verifyClientError(response);
+	}
+	
+	@Test
+	@DisplayName("If BookRequest is null in POST")
+	void bookRequestIsNullInPost() {	
+		//when
+		final var response = bookSystem.tryStoringBook(null);
 		
 		//then
 		bookSystem.getVerifier().verifyClientError(response);

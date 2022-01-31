@@ -95,6 +95,9 @@ public class BookSystem extends System {
 	}
 	
 	public BookRequest buildInvalidBook() {
-		return new BookRequest();
+		final var invalidBookRequest = new BookRequest();
+		invalidBookRequest.summary = "summary but not more";
+		return invalidBookRequest;
 	}
+	
 }

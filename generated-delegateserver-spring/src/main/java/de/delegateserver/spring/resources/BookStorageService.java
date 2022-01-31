@@ -9,6 +9,9 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -65,7 +68,7 @@ public class BookStorageService implements BooksApiDelegate {
 	}
 	
 	@Override 
-	public ResponseEntity<Void> booksBookIdPut(UUID bookId, BookRequest request) {
+	public ResponseEntity<Void> booksBookIdPut(UUID bookId, @Valid @NotNull BookRequest request) {
 		bookMap.put(bookId, request);
 		
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -107,7 +110,7 @@ public class BookStorageService implements BooksApiDelegate {
 	
 	
 	@Override
-	public ResponseEntity<BookResponse> booksPost(BookRequest request) {
+	public ResponseEntity<BookResponse> booksPost(@Valid @NotNull BookRequest request) {
 		UUID bookId = UUID.randomUUID();
 		bookMap.put(bookId, request);
 		

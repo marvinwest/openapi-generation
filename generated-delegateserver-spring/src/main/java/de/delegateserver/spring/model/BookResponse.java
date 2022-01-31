@@ -19,7 +19,7 @@ import java.util.*;
  * Response object of the book
  */
 @ApiModel(description = "Response object of the book")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-30T14:19:44.509599900+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-31T20:35:57.697530700+01:00[Europe/Berlin]")
 public class BookResponse   {
   @JsonProperty("bookId")
   private UUID bookId;

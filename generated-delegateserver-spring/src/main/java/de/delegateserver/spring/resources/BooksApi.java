@@ -21,7 +21,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-30T14:19:44.509599900+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-31T20:35:57.697530700+01:00[Europe/Berlin]")
 @Validated
 @Api(value = "books", description = "the books API")
 public interface BooksApi {
@@ -118,7 +118,7 @@ public interface BooksApi {
      * Add a new book or replace the book given at that resource
      *
      * @param bookId UUID of the book (required)
-     * @param bookRequest Book to be updated (optional)
+     * @param bookRequest Book to be updated (required)
      * @return No Content (status code 204)
      *         or Bad Request: if the request cannot be processed due to a client error.    For example:    - invalid request syntax   - semantical error in request, like:     - invalid reference in request data (for instance bookId refers to a Book that does not exist)     - missing field that is required (status code 400)
      */
@@ -138,7 +138,7 @@ public interface BooksApi {
 
 ,
 
-@ApiParam(value = "Book to be updated" )   @Valid @RequestBody(required = false) BookRequest bookRequest) {
+@ApiParam(value = "Book to be updated", required = true )   @Valid @RequestBody BookRequest bookRequest) {
         return getDelegate().booksBookIdPut(bookId, bookRequest);
     }
 
@@ -180,7 +180,7 @@ public interface BooksApi {
      * POST /books : Store a book
      * Add a book to your storage.
      *
-     * @param bookRequest Book to be created (optional)
+     * @param bookRequest Book to be created (required)
      * @return created (status code 201)
      *         or Bad Request: if the request cannot be processed due to a client error.    For example:    - invalid request syntax   - semantical error in request, like:     - invalid reference in request data (for instance bookId refers to a Book that does not exist)     - missing field that is required (status code 400)
      */
@@ -199,7 +199,7 @@ public interface BooksApi {
     )
     default ResponseEntity<BookResponse> booksPost(
 
-@ApiParam(value = "Book to be created" )   @Valid @RequestBody(required = false) BookRequest bookRequest) {
+@ApiParam(value = "Book to be created", required = true )   @Valid @RequestBody BookRequest bookRequest) {
         return getDelegate().booksPost(bookRequest);
     }
 
