@@ -93,4 +93,8 @@ public class BookSystem extends System {
 		
 		return huxley;
 	}
+	
+	public BookRequest buildInvalidBook() {
+		return new BookRequest();
+	}
 }

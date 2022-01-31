@@ -4,9 +4,10 @@ import javax.ws.rs.core.Response;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("Book")
+@DisplayName("A Book")
 public class DelegateServerIT extends SystemTest {
 
 	@Test
@@ -21,18 +22,18 @@ public class DelegateServerIT extends SystemTest {
 		// then
 		bookSystem.getVerifier().verifyStatus(createResponse, Response.Status.CREATED);
 	}
-	
+
 	@Test
 	@DisplayName("is found by bookId after creation")
 	void CreatedBookisFoundByBookId() {
 		// given
 		final var createRequest = bookSystem.buildOrwell();
 		final var createResponse = bookSystem.storeBook(createRequest);
-		
-		//when
+
+		// when
 		final var getResponse = bookSystem.fetchBookByBookId(createResponse.bookId);
-		
-		//then
+
+		// then
 		bookSystem.bookVerifier.booksAreEqual(createRequest, getResponse);
 	}
 
@@ -49,60 +50,58 @@ public class DelegateServerIT extends SystemTest {
 
 		// then
 		Assertions.assertAll(
-			() -> Assertions.assertEquals(createRequest.title, createResponse.title),
-			() -> bookSystem.bookVerifier.assertBookIsInBookList(createResponse, bookInformationList)
-		);
+				() -> Assertions.assertEquals(createRequest.title, createResponse.title),
+				() -> bookSystem.bookVerifier.assertBookIsInBookList(createResponse, bookInformationList));
 	}
-	
+
 	@Test
 	@DisplayName("can be updated (PUT) after creation")
 	void createdBookCanBeUpdated() {
-		//given
+		// given
 		final var createRequest = bookSystem.buildOrwell();
 		final var createResponse = bookSystem.storeBook(createRequest);
-		
-		//when
+
+		// when
 		final var updateRequest = bookSystem.buildHuxley();
 		bookSystem.tryUpdatingBookByBookId(createResponse.bookId, updateRequest);
 		final var getResponse = bookSystem.fetchBookByBookId(createResponse.bookId);
-		
-		//then
+
+		// then
 		bookSystem.bookVerifier.booksAreEqual(updateRequest, getResponse);
 	}
-	
+
 	@Test
 	@DisplayName("can be updated (PATCH) after creation")
 	void createdBookCanBePatched() {
-		//given
+		// given
 		final var createRequest = bookSystem.buildHuxley();
 		final var createResponse = bookSystem.storeBook(createRequest);
-				
-		//when
+
+		// when
 		final var patchRequest = bookSystem.buildOrwell();
 		bookSystem.tryPatchingBookByBookId(createResponse.bookId, patchRequest);
 		final var getResponse = bookSystem.fetchBookByBookId(createResponse.bookId);
-				
-		//then
+
+		// then
 		bookSystem.bookVerifier.booksAreEqual(patchRequest, getResponse);
 	}
-	
+
 	@Test
 	@DisplayName("can be deleted after creation")
 	void createdBookCanBeDeleted() {
-		//given
+		// given
 		final var createRequest = bookSystem.buildHuxley();
 		final var createResponse = bookSystem.storeBook(createRequest);
 		final var booksAfterCreation = bookSystem.fetchBooks();
-		
-		//when
+
+		// when
 		bookSystem.tryDeletingBookByBookId(createResponse.bookId);
 		final var booksAfterDeletion = bookSystem.fetchBooks();
-				
-		//then
+
+		// then
 		Assertions.assertAll(
-			() -> bookSystem.bookVerifier.assertBookIsInBookList(createResponse, booksAfterCreation),
-			() -> bookSystem.bookVerifier.assertBookIsNotInBookList(createResponse, booksAfterDeletion)
-		);	
+				() -> bookSystem.bookVerifier.assertBookIsInBookList(createResponse, booksAfterCreation),
+				() -> bookSystem.bookVerifier.assertBookIsNotInBookList(createResponse, booksAfterDeletion));
 	}
 
 }
